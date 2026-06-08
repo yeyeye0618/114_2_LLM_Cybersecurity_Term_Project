@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>基於 LLM 的威脅情資抽取</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-content">
+      <p class="eyebrow">LLM-based Threat Intelligence Extraction</p>
+      <h1>基於 LLM 的威脅情資抽取</h1>
+      <p>
+        上傳威脅報告後，由後端 LLM 模型抽取標準化 CTI，並在前端以 Dashboard 形式呈現。
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>上傳威脅情資報告</h2>
+      <p class="hint">
+        請上傳威脅報告、安全公告、惡意程式分析文章或 SOC 告警紀錄。
+      </p>
+
+      <div class="upload-box">
+        <input
+          type="file"
+          id="fileInput"
+          accept=".pdf,.txt,.md,.json,.log"
+        />
+
+        <p id="fileNameText" class="file-name">
+          尚未選擇檔案
+        </p>
+      </div>
+
+      <div class="button-group">
+        <button id="analyzeBtn">上傳並分析</button>
+        <button id="clearBtn" class="secondary">清除檔案</button>
+      </div>
+
+      <p id="statusText" class="status"></p>
+    </section>
+
+    <section class="card">
+      <div class="section-title">
+        <div>
+          <h2>歷史報告查詢</h2>
+          <p class="hint">
+            查看先前已完成分析的報告，並重新載入對應的 CTI 結果。
+          </p>
+        </div>
+
+        <button id="refreshReportsBtn" class="secondary">重新整理</button>
+      </div>
+
+      <p id="historyStatusText" class="status muted"></p>
+      <div id="reportList" class="report-list"></div>
+    </section>
+
+    <section id="resultSection" class="result-section hidden">
+      <section class="card">
+        <div class="section-title">
+          <div>
+            <h2>CTI 分析結果</h2>
+            <p id="metadataText" class="hint"></p>
+          </div>
+
+          <span class="badge">Prompt v3 CTI JSON</span>
+        </div>
+      </section>
+
+      <div class="grid">
+        <section class="card">
+          <h2>威脅摘要</h2>
+          <div id="summaryContent" class="summary-content"></div>
+        </section>
+
+        <section class="card">
+          <h2>抽取概況</h2>
+
+          <div class="overview-grid">
+            <div class="overview-item">
+              <strong id="indicatorCount">0</strong>
+              <span>Indicators</span>
+            </div>
+
+            <div class="overview-item">
+              <strong id="toolCount">0</strong>
+              <span>Tools</span>
+            </div>
+
+            <div class="overview-item">
+              <strong id="behaviorCount">0</strong>
+              <span>Behaviors</span>
+            </div>
+
+            <div class="overview-item">
+              <strong id="mappingCount">0</strong>
+              <span>ATT&CK Mapping</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="card">
+        <h2>Indicators / IoCs</h2>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Value</th>
+                <th>Role</th>
+                <th>Evidence</th>
+                <th>Confidence</th>
+              </tr>
+            </thead>
+            <tbody id="indicatorTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Malware / Tools</h2>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Role</th>
+                <th>Evidence</th>
+                <th>Confidence</th>
+              </tr>
+            </thead>
+            <tbody id="toolTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Threat Actors</h2>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Evidence</th>
+                <th>Confidence</th>
+              </tr>
+            </thead>
+            <tbody id="actorTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Attack Behaviors</h2>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Behavior</th>
+                <th>Attack Stage</th>
+                <th>Evidence</th>
+                <th>Confidence</th>
+              </tr>
+            </thead>
+            <tbody id="behaviorTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>MITRE ATT&CK Mapping</h2>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Tactic</th>
+                <th>Technique</th>
+                <th>Technique ID</th>
+                <th>Evidence</th>
+                <th>Confidence</th>
+              </tr>
+            </thead>
+            <tbody id="mappingTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Defensive Recommendations</h2>
+        <ul id="recommendationList" class="recommendation-list"></ul>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Web UI Prototype for 基於 LLM 的威脅情資抽取</p>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
