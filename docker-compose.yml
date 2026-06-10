@@ -1,0 +1,37 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cti-backend
+    ports:
+      - "8000:8000"
+    environment:
+      OPEN_WEBUI_URL: ${OPEN_WEBUI_URL:-http://host.docker.internal:3000}
+      OPEN_WEBUI_API_KEY: ${OPEN_WEBUI_API_KEY:-}
+      MODEL_NAME: ${MODEL_NAME:-gpt-oss:20b}
+      MAX_INPUT_CHARS: ${MAX_INPUT_CHARS:-12000}
+      REPORT_DB_PATH: /app/data/reports.db
+    volumes:
+      - backend-data:/app/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cti-frontend
+    ports:
+      - "8080:80"
+    environment:
+      BACKEND_URL: ${BACKEND_URL:-http://backend:8000}
+    depends_on:
+      - backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+volumes:
+  backend-data:
