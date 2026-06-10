@@ -12,8 +12,9 @@ services:
       MODEL_NAME: ${MODEL_NAME:-gpt-oss:20b}
       MAX_INPUT_CHARS: ${MAX_INPUT_CHARS:-12000}
       REPORT_DB_PATH: /app/data/reports.db
+      SEED_DATASET_PATH: /app/data/cti-dataset.json
     volumes:
-      - backend-data:/app/data
+      - ./data:/app/data
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: unless-stopped
@@ -24,7 +25,7 @@ services:
       dockerfile: Dockerfile
     container_name: cti-frontend
     ports:
-      - "8080:80"
+      - "3000:80"
     environment:
       BACKEND_URL: ${BACKEND_URL:-http://backend:8000}
     depends_on:
@@ -32,6 +33,3 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: unless-stopped
-
-volumes:
-  backend-data:

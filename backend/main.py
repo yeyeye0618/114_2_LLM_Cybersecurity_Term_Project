@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from .config import settings
+from .dataset_seed import seed_reports_from_dataset
 from .report_processor import (
     ConfigurationError,
     ModelOutputError,
@@ -18,6 +19,11 @@ from .report_repository import ReportRepository, build_counts
 
 app = FastAPI(title="CTI Report Backend")
 repository = ReportRepository(settings.report_db_path)
+seed_status = seed_reports_from_dataset(
+    repository,
+    settings.seed_dataset_path,
+    settings.model_name,
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -37,6 +43,11 @@ async def http_exception_handler(_: Request, exc: HTTPException) -> JSONResponse
 @app.get("/api/health")
 def health() -> dict[str, str]:
     return {"status": "ok"}
+
+
+@app.get("/api/seed-status")
+def get_seed_status() -> dict:
+    return seed_status
 
 
 @app.post("/api/reports/analyze")

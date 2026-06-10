@@ -76,6 +76,23 @@ class ReportRepository:
 
         return record
 
+    def save_if_missing(self, record: dict[str, Any]) -> bool:
+        with self._connect() as connection:
+            exists = connection.execute(
+                """
+                SELECT 1
+                FROM reports
+                WHERE id = ?
+                """,
+                (record["id"],),
+            ).fetchone()
+
+        if exists:
+            return False
+
+        self.save(record)
+        return True
+
     def list_reports(self) -> list[dict[str, Any]]:
         with self._connect() as connection:
             rows = connection.execute(

@@ -1,0 +1,483 @@
+[
+    {
+        "report_id":  "R001",
+        "summary":  "A multi-stage Linux intrusion began from a compromised F5 BIG-IP edge appliance, then pivoted to an internal Linux host and vulnerable Confluence server. The attacker performed reconnaissance, downloaded custom scanning tools, stole credentials from Confluence configuration files, and attempted Kerberos relay-style attacks against Active Directory.",
+        "iocs":  [
+                     {
+                         "type":  "ipv4",
+                         "value":  "206.189.27[.]39",
+                         "role":  "C2 server / tool hosting"
+                     },
+                     {
+                         "type":  "sha256",
+                         "value":  "4a927d031919fd6bd88d3c8a917214b54bca00f8ddc80ecfe4d230663dda7465",
+                         "role":  "custom scanning tool"
+                     },
+                     {
+                         "type":  "sha256",
+                         "value":  "b4592cea69699b2c0737d4e19cff7dca17b5baf5a238cd6da950a37e9986f216",
+                         "role":  "shell script for Nmap automation"
+                     }
+                 ],
+        "ttps":  [
+                     {
+                         "mitre_id":  "T1021.004",
+                         "technique":  "Remote Services: SSH"
+                     },
+                     {
+                         "mitre_id":  "T1059.004",
+                         "technique":  "Command and Scripting Interpreter: Unix Shell"
+                     },
+                     {
+                         "mitre_id":  "T1083",
+                         "technique":  "File and Directory Discovery"
+                     },
+                     {
+                         "mitre_id":  "T1105",
+                         "technique":  "Ingress Tool Transfer"
+                     }
+                 ]
+    },
+    {
+        "report_id":  "R002",
+        "summary":  "This report describes attackers abusing Node.js in malware delivery. One campaign uses malvertising and fake cryptocurrency trading sites to trick users into downloading malicious installers. The malware creates scheduled tasks for persistence, uses PowerShell, collects system and browser information, communicates with C2 infrastructure, and exfiltrates data.",
+        "iocs":  [
+                     {
+                         "type":  "ipv4",
+                         "value":  "216.245.184.181",
+                         "role":  "C2 infrastructure"
+                     },
+                     {
+                         "type":  "ipv4",
+                         "value":  "212.237.217.182",
+                         "role":  "C2 infrastructure"
+                     },
+                     {
+                         "type":  "domain",
+                         "value":  "sublime-forecasts-pale-scored.trycloudflare.com",
+                         "role":  "Cloudflare tunnel / C2"
+                     },
+                     {
+                         "type":  "domain",
+                         "value":  "washing-cartridges-watts-flags.trycloudflare.com",
+                         "role":  "Cloudflare tunnel / C2"
+                     }
+                 ],
+        "ttps":  [
+                     {
+                         "mitre_id":  "T1189",
+                         "technique":  "Drive-by Compromise"
+                     },
+                     {
+                         "mitre_id":  "T1053.005",
+                         "technique":  "Scheduled Task/Job: Scheduled Task"
+                     },
+                     {
+                         "mitre_id":  "T1003",
+                         "technique":  "OS Credential Dumping"
+                     },
+                     {
+                         "mitre_id":  "T1071.001",
+                         "technique":  "Application Layer Protocol: Web Protocols"
+                     },
+                     {
+                         "mitre_id":  "T1041",
+                         "technique":  "Exfiltration Over C2 Channel"
+                     }
+                 ]
+    },
+    {
+        "report_id":  "R003",
+        "summary":  "This report analyzes a new XCSSET macOS malware variant that infects Xcode projects. The malware uses obfuscated shell and AppleScript payloads, downloads additional modules from C2 servers, collects system information, performs persistence, hides artifacts, and exfiltrates data.",
+        "iocs":  [
+                     {
+                         "type":  "domain",
+                         "value":  "bulknames[.]ru",
+                         "role":  "C2 server"
+                     },
+                     {
+                         "type":  "domain",
+                         "value":  "castlenet[.]ru",
+                         "role":  "C2 server"
+                     },
+                     {
+                         "type":  "file_path",
+                         "value":  "/Applications/SimulatorTrampoline.app",
+                         "role":  "launcher application"
+                     },
+                     {
+                         "type":  "sha256",
+                         "value":  "d338dc9a75a14753f57399815b5d996a1c5e65aa4eb203222d8c85fb3d74b02f",
+                         "role":  "fourth-stage payload"
+                     }
+                 ],
+        "ttps":  [
+                     {
+                         "mitre_id":  "T1195.001",
+                         "technique":  "Supply Chain Compromise: Compromise Software Dependencies and Development Tools"
+                     },
+                     {
+                         "mitre_id":  "T1059.002",
+                         "technique":  "Command and Scripting Interpreter: AppleScript"
+                     },
+                     {
+                         "mitre_id":  "T1059.004",
+                         "technique":  "Command and Scripting Interpreter: Unix Shell"
+                     },
+                     {
+                         "mitre_id":  "T1564.001",
+                         "technique":  "Hide Artifacts: Hidden Files and Directories"
+                     },
+                     {
+                         "mitre_id":  "T1041",
+                         "technique":  "Exfiltration Over C2 Channel"
+                     }
+                 ]
+    },
+    {
+        "report_id":  "R004",
+        "summary":  "This report describes social engineering attacks targeting Indian users with fake Android banking applications. The malicious APKs impersonate legitimate banking apps, request SMS permissions, steal banking credentials and account information, intercept SMS messages, and send collected data to attacker-controlled infrastructure.",
+        "iocs":  [
+                     {
+                         "type":  "sha256",
+                         "value":  "6812a82edcb49131a990acd88ed5f6d73da9f536b60ee751184f27265ea769ee",
+                         "role":  "malicious APK"
+                     },
+                     {
+                         "type":  "sha256",
+                         "value":  "34cdc6ef199b4c50ee80eb0efce13a63a9a0e6bee9c23610456e913bf78272a8",
+                         "role":  "malicious APK"
+                     },
+                     {
+                         "type":  "url",
+                         "value":  "https://biogenetic-flake.000webhostapp[.]com/add.php",
+                         "role":  "credential collection / C2"
+                     }
+                 ],
+        "ttps":  [
+                     {
+                         "mitre_id":  "T1053",
+                         "technique":  "Scheduled Task/Job"
+                     },
+                     {
+                         "mitre_id":  "T1027",
+                         "technique":  "Obfuscated Files or Information"
+                     },
+                     {
+                         "mitre_id":  "T1417",
+                         "technique":  "Input Capture"
+                     },
+                     {
+                         "mitre_id":  "T1636.004",
+                         "technique":  "Protected User Data: SMS Messages"
+                     },
+                     {
+                         "mitre_id":  "T1041",
+                         "technique":  "Exfiltration Over C2 Channel"
+                     }
+                 ]
+    },
+    {
+        "report_id":  "R005",
+        "summary":  "Cisco Talos documents ArcaneDoor, an espionage-focused campaign attributed to UAT4356 / STORM-1849 that targeted perimeter network devices, especially Cisco ASA devices. The actor deployed custom implants called Line Runner and Line Dancer to maintain persistence, execute commands, modify configurations, capture network traffic, exfiltrate data, and evade forensic analysis.",
+        "iocs":  [
+                     {
+                         "type":  "ipv4",
+                         "value":  "192.36.57[.]181",
+                         "role":  "likely actor-controlled infrastructure"
+                     },
+                     {
+                         "type":  "ipv4",
+                         "value":  "185.167.60[.]85",
+                         "role":  "likely actor-controlled infrastructure"
+                     },
+                     {
+                         "type":  "ipv4",
+                         "value":  "185.227.111[.]17",
+                         "role":  "likely actor-controlled infrastructure"
+                     },
+                     {
+                         "type":  "ipv4",
+                         "value":  "176.31.18[.]153",
+                         "role":  "likely actor-controlled infrastructure"
+                     },
+                     {
+                         "type":  "ipv4",
+                         "value":  "172.105.90[.]154",
+                         "role":  "likely actor-controlled infrastructure"
+                     }
+                 ],
+        "ttps":  [
+                     {
+                         "mitre_id":  "T1037",
+                         "technique":  "Boot or Logon Initialization Scripts"
+                     },
+                     {
+                         "mitre_id":  "T1140",
+                         "technique":  "Deobfuscate/Decode Files or Information"
+                     },
+                     {
+                         "mitre_id":  "T1562.001",
+                         "technique":  "Impair Defenses: Disable or Modify Tools"
+                     },
+                     {
+                         "mitre_id":  "T1055",
+                         "technique":  "Process Injection"
+                     },
+                     {
+                         "mitre_id":  "T1041",
+                         "technique":  "Exfiltration Over C2 Channel"
+                     }
+                 ]
+    },
+    {
+        "report_id":  "R006",
+        "summary":  "Cisco Talos analyzes recent BlackByte ransomware activity. The report describes BlackByte\u0027s use of valid accounts, VPN access, VMware ESXi exploitation, SMB and RDP lateral movement, BYOVD techniques, Windows Defender tampering, file deletion, and ransomware encryption. Talos also provides MITRE ATT\u0026CK mapping for the newly observed TTPs and several driver-related IoCs.",
+        "iocs":  [
+                     {
+                         "type":  "sha256",
+                         "value":  "01aa278b07b58dc46c84bd0b1b5c8e9ee4e62ea0bf7a695862444af32e87f1fd",
+                         "role":  "RtCore64.sys vulnerable driver"
+                     },
+                     {
+                         "type":  "sha256",
+                         "value":  "0296e2ce999e67c76352613a718e11516fe1b0efc3ffdb8918fc999dd76a73a5",
+                         "role":  "DBUtil_2_3.sys vulnerable driver"
+                     },
+                     {
+                         "type":  "sha256",
+                         "value":  "543991ca8d1c65113dff039b85ae3f9a87f503daec30f46929fd454bc57e5a91",
+                         "role":  "zamguard64.sys vulnerable driver"
+                     },
+                     {
+                         "type":  "sha256",
+                         "value":  "31f4cfb4c71da44120752721103a16512444c13c2ac2d857a7e6f13cb679b427",
+                         "role":  "gdrv.sys vulnerable driver"
+                     },
+                     {
+                         "type":  "file_name",
+                         "value":  "host.exe",
+                         "role":  "BlackByte ransomware binary name observed in recent cases"
+                     }
+                 ],
+        "ttps":  [
+                     {
+                         "mitre_id":  "T1078.002",
+                         "technique":  "Valid Accounts: Domain Accounts"
+                     },
+                     {
+                         "mitre_id":  "T1021.002",
+                         "technique":  "Remote Services: SMB/Windows Admin Shares"
+                     },
+                     {
+                         "mitre_id":  "T1021.001",
+                         "technique":  "Remote Services: Remote Desktop Protocol"
+                     },
+                     {
+                         "mitre_id":  "T1562.001",
+                         "technique":  "Impair Defenses: Disable or Modify Tools"
+                     },
+                     {
+                         "mitre_id":  "T1486",
+                         "technique":  "Data Encrypted for Impact"
+                     }
+                 ]
+    },
+    {
+        "report_id":  "R007",
+        "summary":  "Talos documents Xanthe, a Docker-aware Monero mining botnet targeting Linux systems. The malware spreads through SSH keys and exposed Docker APIs, downloads multiple modules, disables competing miners and security services, establishes cron-based persistence, hides miner processes, and deploys XMRig for cryptocurrency mining.",
+        "iocs":  [
+                     {
+                         "type":  "ipv4",
+                         "value":  "34[.]92[.]166[.]158",
+                         "role":  "download server"
+                     },
+                     {
+                         "type":  "ipv4",
+                         "value":  "64[.]225[.]46[.]44",
+                         "role":  "allowed incoming IP"
+                     },
+                     {
+                         "type":  "domain",
+                         "value":  "xanthe[.]anondns[.]net",
+                         "role":  "malware domain"
+                     },
+                     {
+                         "type":  "url",
+                         "value":  "hxxp://34[.]92[.]166[.]158:8080/files/pop.sh",
+                         "role":  "downloader script"
+                     },
+                     {
+                         "type":  "sha256",
+                         "value":  "071633c8ea4bac5d6acfe1cdc22b3a3f258d99ee8073dd2611eee9876ae40d64",
+                         "role":  "xanthe.sh sample"
+                     }
+                 ],
+        "ttps":  [
+                     {
+                         "mitre_id":  "T1190",
+                         "technique":  "Exploit Public-Facing Application"
+                     },
+                     {
+                         "mitre_id":  "T1133",
+                         "technique":  "External Remote Services"
+                     },
+                     {
+                         "mitre_id":  "T1496",
+                         "technique":  "Resource Hijacking"
+                     },
+                     {
+                         "mitre_id":  "T1053",
+                         "technique":  "Scheduled Task/Job"
+                     },
+                     {
+                         "mitre_id":  "T1014",
+                         "technique":  "Rootkit"
+                     }
+                 ]
+    },
+    {
+        "report_id":  "R008",
+        "summary":  "Unit 42 analyzes a supply chain attack against the Axios JavaScript library. A compromised npm maintainer account led to malicious Axios versions that introduced a hidden dependency, plain-crypto-js. The malware executed postinstall scripts, downloaded platform-specific RAT payloads for Windows, macOS, and Linux, contacted C2 infrastructure, established persistence, and performed cleanup.",
+        "iocs":  [
+                     {
+                         "type":  "domain",
+                         "value":  "sfrclak[.]com",
+                         "role":  "C2 domain"
+                     },
+                     {
+                         "type":  "domain",
+                         "value":  "callnrwise[.]com",
+                         "role":  "associated domain"
+                     },
+                     {
+                         "type":  "ipv4",
+                         "value":  "142.11.206[.]73",
+                         "role":  "associated IP"
+                     },
+                     {
+                         "type":  "url",
+                         "value":  "hxxp://sfrclak[.]com:8000/6202033",
+                         "role":  "payload download URL"
+                     },
+                     {
+                         "type":  "sha256",
+                         "value":  "ad8ba560ae5c4af4758bc68cc6dcf43bae0e0bbf9da680a8dc60a9ef78e22ff7",
+                         "role":  "malicious file hash"
+                     }
+                 ],
+        "ttps":  [
+                     {
+                         "mitre_id":  "T1105",
+                         "technique":  "Ingress Tool Transfer"
+                     },
+                     {
+                         "mitre_id":  "T1204.005",
+                         "technique":  "User Execution: Malicious Package"
+                     },
+                     {
+                         "mitre_id":  "T1219",
+                         "technique":  "Remote Access Software"
+                     },
+                     {
+                         "mitre_id":  "T1071.001",
+                         "technique":  "Application Layer Protocol: Web Protocols"
+                     }
+                 ]
+    },
+    {
+        "report_id":  "R009",
+        "summary":  "Unit 42 reports active exploitation of CVE-2026-1731, a pre-authentication remote code execution vulnerability in BeyondTrust remote support software. Observed post-exploitation activity includes reconnaissance, account creation, web shell deployment, command-and-control traffic, deployment of SparkRAT and VShell, lateral movement, DNS tunneling, and data theft.",
+        "iocs":  [
+                     {
+                         "type":  "ipv4",
+                         "value":  "23.162.40[.]187",
+                         "role":  "observed infrastructure"
+                     },
+                     {
+                         "type":  "ipv4",
+                         "value":  "134.122.13[.]34",
+                         "role":  "SparkRAT C2 infrastructure"
+                     },
+                     {
+                         "type":  "url",
+                         "value":  "hxxp[:]//134.122.13[.]34:8979/c",
+                         "role":  "SparkRAT C2 URL"
+                     },
+                     {
+                         "type":  "domain",
+                         "value":  "aliyundunupdate[.]xyz",
+                         "role":  "VShell infrastructure"
+                     },
+                     {
+                         "type":  "sha256",
+                         "value":  "9f431d5549a03aee92cfd2bdbbe90f1c91e965c99e90a0c9ad5a001f4e80c350",
+                         "role":  "SparkRAT sample"
+                     },
+                     {
+                         "type":  "sha256",
+                         "value":  "98a7b0900a9072bb40af579ec372da7b27af12b15868394df51fefe290ab176b",
+                         "role":  "VShell sample"
+                     }
+                 ],
+        "ttps":  [
+                     {
+                         "mitre_id":  "T1190",
+                         "technique":  "Exploit Public-Facing Application"
+                     }
+                 ]
+    },
+    {
+        "report_id":  "R010",
+        "summary":  "Unit 42 describes Jingle Thief, a cloud-based gift card fraud campaign conducted by financially motivated actors. The attackers use phishing and smishing to steal credentials, compromise Microsoft 365 environments, perform reconnaissance, maintain persistence, and issue unauthorized gift cards. The report provides infrastructure indicators, phishing URL patterns, and Cortex alerts mapped to MITRE ATT\u0026CK.",
+        "iocs":  [
+                     {
+                         "type":  "ipv4",
+                         "value":  "105.156.109[.]227",
+                         "role":  "Moroccan infrastructure / attribution signal"
+                     },
+                     {
+                         "type":  "ipv4",
+                         "value":  "196.65.139[.]51",
+                         "role":  "Moroccan infrastructure / attribution signal"
+                     },
+                     {
+                         "type":  "ipv4",
+                         "value":  "70.187.192[.]236",
+                         "role":  "potential proxy or compromised host"
+                     },
+                     {
+                         "type":  "url_pattern",
+                         "value":  "hxxps://*.com.ng/*[brand-name].com/home/",
+                         "role":  "phishing URL pattern"
+                     },
+                     {
+                         "type":  "url_pattern",
+                         "value":  "hxxps://*.[brand-name].servicenow.*/*access",
+                         "role":  "phishing URL pattern"
+                     }
+                 ],
+        "ttps":  [
+                     {
+                         "mitre_id":  "T1564.008",
+                         "technique":  "Hide Artifacts: Email Hiding Rules"
+                     },
+                     {
+                         "mitre_id":  "T1070.008",
+                         "technique":  "Indicator Removal: Clear Mailbox Data"
+                     },
+                     {
+                         "mitre_id":  "T1586",
+                         "technique":  "Compromise Accounts"
+                     },
+                     {
+                         "mitre_id":  "T1078.002",
+                         "technique":  "Valid Accounts: Domain Accounts"
+                     },
+                     {
+                         "mitre_id":  "T1530",
+                         "technique":  "Data from Cloud Storage"
+                     }
+                 ]
+    }
+]
